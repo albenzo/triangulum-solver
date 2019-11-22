@@ -25,12 +25,18 @@ let max_f f x y = if (f x) > (f y) then x else y;;
 
 let maximal_propagated_removal (g, w) =
   let rec max_prop_stack (g,w) removed =
-    GTraverse.fold
-      (fun v gval ->
-        max_f
-          left
-          gval
-          (max_prop_stack (propagate_vertex (g,w) v) (v::removed))) (0,[]) g
+    if G.is_empty g
+    then (weight (g,w), removed)
+    else GTraverse.fold
+           (fun v gval ->
+             let g_v = propagate_vertex (g,w) v in
+             max_f left
+               gval
+               (if G.in_degree g v = 0
+                then (weight (g,w), removed)
+                else (max_prop_stack g_v (v::removed))))
+           
+           (0,[]) g
   in max_prop_stack (g,w) [];;
 
 let graph_from_lists verts edges =
