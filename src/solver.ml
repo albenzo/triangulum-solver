@@ -37,5 +37,8 @@ let graph_from_lists verts edges =
 
 
 let g3 = graph_from_lists [1;2;3;4;5;6;7;8;9;10] [(1,3);(2,3);(2,6);(3,4);(5,6);(6,7);(7,10);(8,9)];;
-let w x = if G.V.label x = 7 then 2 else 1;;
-let gw3 = g3,w;;
+let w3 x = if G.V.label x = 7 then 2 else 1;;
+let gw3 = g3,w3;;
+let g1 = graph_from_lists [1;2;3;4] [(1,3);(2,3);(3,4)];;
+let one x = 1;;
+let g_min = graph_from_lists [1;2;3] [(1,2);(2,3)];;
