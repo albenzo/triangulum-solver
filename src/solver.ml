@@ -1,6 +1,12 @@
 open Graph;;
 
-module G = Persistent.Graph.Abstract(struct type t = int end);;
+module G = Persistent.Graph.Concrete(
+               struct
+                 type t = int;;
+                 let equal = (=);;
+                 let hash = (fun x -> x);;
+                 let compare = compare;;
+               end);;
 module GTraverse = Traverse.Dfs(G);;
 module GNbhd = Oper.Neighbourhood(G);;
 
@@ -42,3 +48,4 @@ let gw3 = g3,w3;;
 let g1 = graph_from_lists [1;2;3;4] [(1,3);(2,3);(3,4)];;
 let one x = 1;;
 let g_min = graph_from_lists [1;2;3] [(1,2);(2,3)];;
+
